@@ -13,6 +13,7 @@ mv .vim .envbackup/ 2>/dev/null
 mv .vimrc .envbackup/ 2>/dev/null
 mv .profile .envbackup/ 2>/dev/null
 mv .bashrc .envbackup/ 2>/dev/null
+mv .bash_aliases .envbackup/ 2>/dev/null
 mv .nvmstuff .envbackup/ 2>/dev/null
 
 ln -sf $DIR/.bash

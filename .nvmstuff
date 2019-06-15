@@ -9,4 +9,5 @@ if [ ! -f ~/.nvm/nvm.sh ]; then
   nvm alias default 10.15.3
 else
   source ~/.nvm/nvm.sh
+  [ -s "$NVM_DIR/bash_completion" ] && source ~/.nvm/bash_completion
 fi
