@@ -47,4 +47,9 @@ function zpdiff
   icdiff -r "$@" | less -r
 }
 
+function gitcof
+{
+  git checkout feature/GDPR-$1
+}
+
 [[ $- == *i* ]] || return 0

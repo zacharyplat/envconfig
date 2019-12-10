@@ -206,3 +206,6 @@ map <C-p> viwpviwy
 " highlight functionality in <C-;>
 " **NOTE** doesn't seem to work so I use typing gibbish into search to stop it
 nnoremap <C-;> :nohl<CR>
+" this is for autocomplete
+inoremap <C-Space> <C-x><C-o>
+inoremap <C-@> <C-Space>
