@@ -1,0 +1,4 @@
+#!/bin/sh
+
+sudo -H -E -u $1 bash --login
+cd $HOME

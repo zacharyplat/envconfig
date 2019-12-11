@@ -23,7 +23,7 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-ENV_FILE=~/.env
+ENV_FILE=$HOME/.env
 if [ -f "$ENV_FILE" ]; then
   source "$ENV_FILE"
 fi
@@ -32,8 +32,6 @@ source ~/.nvmstuff
 
 # New prompt with git information
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
-
-source "${GITAWAREPROMPT}/main.sh"
 
 PS1="\n[\[\033[0;32m\]\h\[\033[0m\]:\[\033[0;37m\]\u\[\033[0m\] \[$txtcyn\]\$git_branch \[$txtred\]\$git_dirty\[$txtylw\]\$git_ahead_behind\[$txtrst\] \w]\n$ "
 
@@ -53,3 +51,18 @@ function gitcof
 }
 
 [[ $- == *i* ]] || return 0
+
+npm() {
+  if [[ $1 == "install" ]]; then
+    if [[ -z $2 ]]; then
+      command yarn install
+    else
+      command yarn add $2
+    fi
+  else
+    command npm "$@"
+  fi
+}
+
+#Add bin to path
+export PATH="$HOME/bin:$PATH"
