@@ -5,28 +5,41 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-#!/bin/zsh
-
-source $HOME/.shrc
-
 source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
-
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
-POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='006'
-POWERLEVEL9K_DIR_HOME_BACKGROUND='black'
-POWERLEVEL9K_DIR_HOME_FOREGROUND='magenta'
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='black'
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='magenta'
-POWERLEVEL9K_VCS_CLEAN_BACKGROUND='black'
-POWERLEVEL9K_VCS_CLEAN_FOREGROUND='081'
-POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='202'
-POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='black'
-POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='yellow'
-POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='black'
-
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs)
+source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
+# Add colors to ls
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
+
+# Aliases from bash
+alias ..="cd .."
+[ -x /usr/local/bin/vim ] && alias vim="/usr/local/bin/vim"
+[ -x /usr/local/bin/vim ] && alias vi="/usr/local/bin/vim"
+[ -x /usr/local/bin/ggrep ] && alias grep="/usr/local/bin/ggrep"
+alias fin="find ."
+
+
+# some more ls aliases
+alias ls='ls -FGh -G'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add additional autocomplete functionality
+zstyle ':completion:*:*:git:*' script /usr/local/etc/bash_completion.d/git-completion.bash
+fpath=(/usr/local/share/zsh-completions $fpath)
+autoload -U compinit && compinit
+zmodload -i zsh/complist
+zstyle ':completion:*' menu select
+
+# nvm stuff
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[ -e ~/.crud ] &&  \. ~/.crud

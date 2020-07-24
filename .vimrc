@@ -67,6 +67,7 @@ set omnifunc=ale#completion#OmniFunc
 """""""""""""""""""""""""""""""
 " NERDTree
 """""""""""""""""""""""""""""""
+autocmd vimenter * NERDTree
 " Move window focus to the right instead of on Nerdtree when openeing
 autocmd VimEnter * wincmd p
 " Toggle Nerd Tree on ctrl+n
@@ -86,8 +87,12 @@ let g:jsdoc_param_description_separator = '-'
 """""""""""""""""""""""""""""""
 " Colors.  Themes at http://vimcolors.com/
 """""""""""""""""""""""""""""""
+colorscheme gruvbox
 set background=dark
-colorscheme Tomorrow-Night-Bright
+set t_Co=256
+
+" yanks and pastes into the clipboard not the default buffer
+set clipboard=unnamed
 
 """""""""""""""""""""""""""""""
 " Close Tag
@@ -147,16 +152,77 @@ set ruler
 set showmatch
 set incsearch
 set hlsearch
+set wildmenu
 
-"other options
+" Use case insensitive search, except when using capital letters
+set ignorecase
+set smartcase
+
+" Allows window switching from an unsaved buffer without saving it first.
+set hidden
+
+" Keeps dirs a little cleaner with a specified dir for swp files.
+set backupdir=~/.vimtmp/backup//
+set directory=~/.vimtmp/swp//
+" Allow backspacing over autoindent, line breaks and start of insert action
+
+set nostartofline
+" Stop certain movements from always going to the first character of a line.
+" try G and gg
+
+" While this behaviour deviates from that of Vi, it does what most users
+" coming from other editors would expect.
+set backspace=indent,eol,start
+
+" Always display the status line, even if only one window is displayed
+set laststatus=2
+
+" Instead of failing a command because of unsaved changes, instead raise a
+" dialogue asking if you wish to save changed files.
+set confirm
+
+" Use visual bell instead of beeping when doing something wrong
+set visualbell
+
+set t_vb=
+
+" Enable use of the mouse for all modes
+set mouse=a
+
+" Set the command window height to 2 lines, to avoid many cases of having to
+" 'press <Enter> to continue'
+set cmdheight=2
+
+" Open new split panes to right and bottom, which feels more natural than Vimís default:
+set splitbelow
+set splitright
+
+" Show partial commands in the last line of the screen
 set showcmd
 set noautochdir
+
+" set color
+colorscheme gruvbox
+set background=dark
+set t_Co=256
+
+" yanks and pastes into the clipboard not the default buffer
+set clipboard=unnamed
 
 "" Key Mappins"
 map <C-S-H> <C-w>h
 map <C-S-J> <C-w>j
 map <C-S-K> <C-w>k
 map <C-S-L> <C-w>l
+
+" kicks you out of insert when typing jk
+inoremap jk <esc>
+" visual selection of matching braces
+nnoremap <C-T> v%
+
+" Selects the current word, pastes the current buffer, then yanks the word
+" under the cursor, hacky find and replace substitute
+map <C-p> viwpviwy
 
 autocmd FileType javascript noremap <leader>d :JsDoc<CR>
 autocmd FileType typescript noremap <leader>d :JsDoc<CR>
