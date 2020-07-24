@@ -32,29 +32,6 @@ au bufread,bufnewfile *.sass set filetype=sass
 au bufread,bufnewfile *.html set filetype=html
 
 """""""""""""""""""""""""""""""
-" TypeScript tsuquomi
-"""""""""""""""""""""""""""""""
-let g:tsuquyomi_disable_quickfix = 1
-let g:tsuquyomi_shortest_import_path = 1
-let g:tsuquyomi_single_quote_import = 1
-let g:tsuquyomi_semicolon_import = 1
-let g:tsuquyomi_case_sensitive_imports = 1
-let g:tsuquyomi_completion_detail = 1
-let g:tsuquyomi_completion_case_sensitive = 1
-" open in vsplit
-let g:tsuquyomi_definition_split = 2
-autocmd FileType typescript setlocal completeopt+=menu,preview
-autocmd FileType typescript nmap <buffer> <Leader>e <Plug>(TsuquyomiRenameSymbol)
-autocmd FileType typescript nmap <buffer> <Leader>E <Plug>(TsuquyomiRenameSymbolC)
-autocmd FileType typescript nmap <buffer> <Leader>i <Plug>(TsuImport)
-autocmd FileType typescript nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
-autocmd FileType vue setlocal completeopt+=menu,preview
-autocmd FileType vue nmap <buffer> <Leader>e <Plug>(TsuquyomiRenameSymbol)
-autocmd FileType vue nmap <buffer> <Leader>E <Plug>(TsuquyomiRenameSymbolC)
-autocmd FileType vue nmap <buffer> <Leader>i <Plug>(TsuImport)
-autocmd FileType vue nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
-
-"""""""""""""""""""""""""""""""
 " Syntax Checker with Syntastic
 """""""""""""""""""""""""""""""
 set autoread
@@ -66,8 +43,8 @@ let g:syntastic_auto_jump = 3
 
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_json_checkers = ['eslint']
-let g:syntastic_typescript_checkers = ['tsuquyomi']
-let g:syntastic_vue_checkers = ['tsuquyomi']
+let g:syntastic_typescript_checkers = ['eslint']
+let g:syntastic_vue_checkers = ['eslint']
 
 " use the local version of eslint via the project
  let g:syntastic_javascript_eslint_exec = 'npm run lint --'
@@ -95,12 +72,6 @@ let g:ale_fix_on_save = 1
 let g:jsdoc_enable_es6 = 1
 let g:jsdoc_return = 1
 let g:jsdoc_param_description_separator = '-'
-
-"""""""""""""""""""""""""""""""
-" Colors.  Themes at http://vimcolors.com/
-"""""""""""""""""""""""""""""""
-set background=dark
-colorscheme Tomorrow-Night-Bright
 
 """""""""""""""""""""""""""""""
 " Close Tag
@@ -142,6 +113,7 @@ let g:NERDCustomDelimiters = {
 "general options
 """"
 set statusline=%l:%f
+let mapleader=","
 
 "indentation
 set tabstop=4 softtabstop=0 expandtab shiftwidth=2 smarttab
@@ -220,7 +192,6 @@ map <C-S-L> <C-w>l
 map <F2> :.w !pbcopy<CR><CR>
 map <F3> :r !pbpaste<CR>
 noremap <F5> :JsDoc<CR>
-autocmd FileType typescript nmap <buffer> <F6> <Plug>(TsuquyomiRenameSymbolC)
 
 " kicks you out of insert when typing jk
 inoremap jk <esc>
@@ -238,13 +209,7 @@ map <C-p> viwpviwy
 " **NOTE** doesn't seem to work so I use typing gibbish into search to stop it
 nnoremap <C-;> :nohl<CR>
 " this is for autocomplete
-inoremap <C-Space> <C-x><C-o>
-inoremap <C-@> <C-Space>
+inoremap <C-@> <C-x><C-o>
 
-autocmd FileType typescript nmap <buffer> <F7> <Plug>(TsuquyomiTypeDefinition)
-autocmd FileType typescript  nmap <buffer> <F10> <Plug>(TsuquyomiImport)
-autocmd FileType vue nmap <buffer> <F6> <Plug>(TsuquyomiRenameSymbolC)
-autocmd FileType vue nmap <buffer> <F7> <Plug>(TsuquyomiTypeDefinition)
-autocmd FileType vue nmap <buffer> <F10> <Plug>(TsuquyomiImport)
 noremap <F8> :lprevious<CR>
 noremap <F9> :lnext<CR>
