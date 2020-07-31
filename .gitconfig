@@ -17,10 +17,10 @@
 [mergetool]
 	prompt = false
 [user]
-	name = Chris Paterson
-	email = 1268493+chrispaterson@users.noreply.github.com
+	name = Zachary Plat
+	email = zplat@conversantmedia.com
 [credential]
 	helper = store
 [core]
 	ignorecase = false
-	hooksPath = /Users/cpaterson/githooks
+	hooksPath = /Users/zplat/githooks
