@@ -17,51 +17,27 @@ au bufread,bufnewfile *.scss set filetype=sass
 au bufread,bufnewfile *.sass set filetype=sass
 au bufread,bufnewfile *.html set filetype=html
 
-
 """""""""""""""""""""""""""""""
 " Set split locations
 """""""""""""""""""""""""""""""
 set splitbelow
 set splitright
-
-"""""""""""""""""""""""""""""""
-" Syntax Checker with Syntastic
-"""""""""""""""""""""""""""""""
 set autoread
 
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_auto_jump = 3
-
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_json_checkers = ['eslint']
-let g:syntastic_typescript_checkers = ['eslint']
-let g:syntastic_vue_checkers = ['eslint']
-
 """""""""""""""""""""""""""""""
-" Ale (auto fixer)
+" Ale
 """""""""""""""""""""""""""""""
 let g:ale_completion_tsserver_autoimport = 1
 let g:ale_completion_enabled = 1
+let g:ale_vue_vls_use_global = 1
+let g:ale_list_vertical = 1
 let g:ale_fix_on_save = 1
-let g:ale_set_balloons = 1
+let g:ale_open_list = 1
+let g:ale_keep_list_window_open = 1
+let g:ale_set_quickfix = 1
+let g:ale_set_loclist = 0
 let g:ale_linters_explicit = 1
-let g:ale_linters = {
-\   'typescript': ['tsserver','eslint'],
-\   'javascript': ['eslint'],
-\   'vue': ['eslint', 'vls'],
-\   'json': ['eslint']
-\}
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'typescript': ['eslint'],
-\   'javascript': ['eslint'],
-\   'vue': ['eslint'],
-\   'json': ['eslint'],
-\   'html': ['prettier']
-\}
-let g:ale_linter_aliases = {'vue': ['vue', 'typescript']}
+let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
 set omnifunc=ale#completion#OmniFunc
 
 """""""""""""""""""""""""""""""
