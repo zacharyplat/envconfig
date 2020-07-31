@@ -30,10 +30,8 @@ set autoread
 let g:ale_completion_tsserver_autoimport = 1
 let g:ale_completion_enabled = 1
 let g:ale_vue_vls_use_global = 1
-let g:ale_list_vertical = 1
 let g:ale_fix_on_save = 1
 let g:ale_open_list = 1
-let g:ale_keep_list_window_open = 1
 let g:ale_set_quickfix = 1
 let g:ale_set_loclist = 0
 let g:ale_linters_explicit = 1
@@ -181,9 +179,6 @@ set noautochdir
 colorscheme gruvbox
 set background=dark
 set t_Co=256
-
-" yanks and pastes into the clipboard not the default buffer
-set clipboard=unnamed
 
 "" Key Mappins"
 map <C-S-H> <C-w>h
