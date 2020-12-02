@@ -1,9 +1,13 @@
-#!/bin/bash
+#!/bin/sh
 
 export EDITOR="vim"
 
-if [ "$BASH" ]; then
- source ~/.bashrc
-fi
+if [ $SHELL = "/bin/bash" ]; then
 
-export PATH="$HOME/.cargo/bin:$PATH"
+  source $HOME/.bashrc
+
+elif [ $SHELL = "/bin/zsh" ]; then
+
+  source $HOME/.zshrc
+
+fi

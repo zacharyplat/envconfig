@@ -1,9 +1,15 @@
 [push]
 	default = simple
 [alias]
-	ac = !git add -A && git commit
-	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
-	amend = !git add -A && git commit --amend --no-edit
+	ac = ! git add -A && git commit
+	root = rev-parse --show-toplevel
+	cdroot = !cd $(git root)
+	amend = ac --amend --no-edit
+    smd = "!f() { MOD=.vim/pack/lib/start/$1; git submodule deinit -f -- $MOD; sed \"/$1/d\" \"$(git root).gitmodules\" > \"$(git root).gitmodules\"; rm -rf $(git root)/$MOD $(git root)/.git/modules/$MOD; }; f"
+    sma = "!f() { FILE=${1##*/}; NAME=${FILE%.*}; DESTINATION=.vim/pack/lib/start/$NAME; git submodule add -f -- $1 $DESTINATION; }; f"
+    release = flow release $1 $2
+    issue = flow feature $1 $2
+    hotfix = flow hotfix $1 $2
 	d = difftool
 [diff]
 	tool = vimdiff
@@ -15,6 +21,10 @@
 [mergetool]
 	prompt = false
 [user]
-	name = Chris Paterson
+	name = Zachary Plat
+	email = zplat@conversantmedia.com
 [credential]
 	helper = store
+[core]
+	ignorecase = false
+	hooksPath = ~/githooks

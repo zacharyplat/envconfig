@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if [ -z $1 ]; then
+  echo 'you must at least search for something'
+  exit 1
+fi
+
+SEARCH=$1
+REPLACE=$2
+
+if [ -z $3 ]; then
+
+  DIR='.'
+
+else
+
+  DIR=$3
+
+fi
+
+if [ -z $4 ]; then
+
+  EXTENSION='*'
+
+else
+
+  EXTENSION=$4
+
+fi
+
+echo "Finding \"$SEARCH\" and replacing with \"$REPLACE\" in every .$EXTENSION file in $DIR"
+sed -i.bak "s/$SEARCH/$REPLACE/g" `find $DIR -name "*.$EXTENSION"` && rm -r `find $DIR -name "*.bak"`
