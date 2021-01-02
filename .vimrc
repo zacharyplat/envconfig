@@ -1,23 +1,9 @@
 syntax on
 filetype plugin indent on
 
-
-
-let g:jsx_ext_required = 0
-
-" nerdtree stuff
-" Run nerdtree automatically when openeing VIM
-autocmd vimenter * NERDTree
-" Move window focus to the right instead of on Nerdtree when openeing
-autocmd VimEnter * wincmd p
-" Toggle Nerd Tree on ctrl+n
-map <C-n> :NERDTreeToggle<CR>
-" show hidden files and folders in NerdTree
-let NERDTreeShowHidden=1
-" close VIM when only nertree is open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" FILETYPES
+"""""""""""""""""""""""""""""""
+" File Types
+"""""""""""""""""""""""""""""""
 au bufread,bufnewfile *.jade set filetype=jade
 au bufread,bufnewfile *.js set filetype=javascript
 au bufread,bufnewfile *.ts set filetype=typescript
@@ -32,62 +18,38 @@ au bufread,bufnewfile *.sass set filetype=sass
 au bufread,bufnewfile *.html set filetype=html
 
 """""""""""""""""""""""""""""""
-" TypeScript tsuquomi
+" Set split locations
 """""""""""""""""""""""""""""""
-let g:tsuquyomi_disable_quickfix = 1
-let g:tsuquyomi_shortest_import_path = 1
-let g:tsuquyomi_single_quote_import = 1
-let g:tsuquyomi_semicolon_import = 1
-let g:tsuquyomi_case_sensitive_imports = 1
-let g:tsuquyomi_completion_detail = 1
-let g:tsuquyomi_completion_case_sensitive = 1
-" open in vsplit
-let g:tsuquyomi_definition_split = 2
-autocmd FileType typescript setlocal completeopt+=menu,preview
-autocmd FileType typescript nmap <buffer> <Leader>e <Plug>(TsuquyomiRenameSymbol)
-autocmd FileType typescript nmap <buffer> <Leader>E <Plug>(TsuquyomiRenameSymbolC)
-autocmd FileType typescript nmap <buffer> <Leader>i <Plug>(TsuImport)
-autocmd FileType typescript nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
-autocmd FileType vue setlocal completeopt+=menu,preview
-autocmd FileType vue nmap <buffer> <Leader>e <Plug>(TsuquyomiRenameSymbol)
-autocmd FileType vue nmap <buffer> <Leader>E <Plug>(TsuquyomiRenameSymbolC)
-autocmd FileType vue nmap <buffer> <Leader>i <Plug>(TsuImport)
-autocmd FileType vue nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
-
-"""""""""""""""""""""""""""""""
-" Syntax Checker with Syntastic
-"""""""""""""""""""""""""""""""
+set splitbelow
+set splitright
 set autoread
 
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_auto_jump = 3
-
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_json_checkers = ['eslint']
-let g:syntastic_typescript_checkers = ['tsuquyomi']
-let g:syntastic_vue_checkers = ['tsuquyomi']
-
-" use the local version of eslint via the project
- let g:syntastic_javascript_eslint_exec = 'npm run lint --'
- let g:syntastic_json_eslint_exec = 'npm run lint --'
- let g:syntastic_vue_eslint_exec = 'npm run lint --'
- let g:syntastic_typescript_eslint_exec = 'npm run lint --'
-
-
 """""""""""""""""""""""""""""""
-" Ale (auto fixer)
+" Ale
 """""""""""""""""""""""""""""""
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint'],
-\   'typescript': ['eslint'],
-\   'vue': ['eslint'],
-\   'html': ['prettier'],
-\   'json': ['eslint']
-\}
+let g:ale_completion_tsserver_autoimport = 1
+let g:ale_completion_enabled = 1
+let g:ale_vue_vls_use_global = 1
 let g:ale_fix_on_save = 1
+let g:ale_open_list = 1
+let g:ale_set_quickfix = 1
+let g:ale_set_loclist = 0
+let g:ale_linters_explicit = 1
+let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
+set omnifunc=ale#completion#OmniFunc
+
+"""""""""""""""""""""""""""""""
+" NERDTree
+"""""""""""""""""""""""""""""""
+autocmd vimenter * NERDTree
+" Move window focus to the right instead of on Nerdtree when openeing
+autocmd VimEnter * wincmd p
+" Toggle Nerd Tree on ctrl+n
+map <C-n> :NERDTreeToggle<CR>
+" show hidden files and folders in NerdTree
+let NERDTreeShowHidden=1
+" close VIM when only nertree is open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 """""""""""""""""""""""""""""""
 " JsDoc
@@ -99,8 +61,12 @@ let g:jsdoc_param_description_separator = '-'
 """""""""""""""""""""""""""""""
 " Colors.  Themes at http://vimcolors.com/
 """""""""""""""""""""""""""""""
+colorscheme gruvbox
 set background=dark
-colorscheme Tomorrow-Night-Bright
+set t_Co=256
+
+" yanks and pastes into the clipboard not the default buffer
+set clipboard=unnamed
 
 """""""""""""""""""""""""""""""
 " Close Tag
@@ -113,7 +79,12 @@ let g:closetag_filenames = '*.html,*.jsx,*.vue'
 " filenames like *.xml, *.xhtml, ...
 " This will make the list of non closing tags self closing in the specified files.
 "
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.vue'
+let g:closetag_xhtml_filenames = '*.xhtml'
+
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+"
+let g:closetag_filetypes = 'html,vue,jsx,tsx,xhtml,phtml'
 
 " integer value [0|1]
 " This will make the list of non closing tags case sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
@@ -122,11 +93,8 @@ let g:closetag_emptyTags_caseSensitive = 1
 
 " Shortcut for closing tags, default is '>'
 "
-let g:closetag_shortcut = '>'
+let g:closetag_shortcut = '<C->>'
 
-" Add > at current position without closing the current tag, default is ''
-"
-let g:closetag_close_shortcut = '<leader>>'
 
 """"
 " NERDCommenter
@@ -137,11 +105,15 @@ let g:NERDCustomDelimiters = {
 \   'typescript': { 'left': '/** ','right': '*/' },
 \   'vue': { 'left': '/** ','right': '*/' }
 \}
+let g:NERDCommentEmptyLines = 1
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
 
 """"
 "general options
 """"
 set statusline=%l:%f
+let mapleader=","
 
 "indentation
 set tabstop=4 softtabstop=0 expandtab shiftwidth=2 smarttab
@@ -164,8 +136,8 @@ set smartcase
 set hidden
 
 " Keeps dirs a little cleaner with a specified dir for swp files.
-set backupdir=~/.vimtmp/backup//
-set directory=~/.vimtmp/swp//
+set backupdir=~/.vimtmp/backup/
+set directory=~/.vimtmp/swp/
 " Allow backspacing over autoindent, line breaks and start of insert action
 
 set nostartofline
@@ -203,24 +175,11 @@ set splitright
 set showcmd
 set noautochdir
 
-" set color
-colorscheme gruvbox
-set background=dark
-set t_Co=256
-
-" yanks and pastes into the clipboard not the default buffer
-set clipboard=unnamed
-
 "" Key Mappins"
 map <C-S-H> <C-w>h
 map <C-S-J> <C-w>j
 map <C-S-K> <C-w>k
 map <C-S-L> <C-w>l
-
-map <F2> :.w !pbcopy<CR><CR>
-map <F3> :r !pbpaste<CR>
-noremap <F5> :JsDoc<CR>
-autocmd FileType typescript nmap <buffer> <F6> <Plug>(TsuquyomiRenameSymbolC)
 
 " kicks you out of insert when typing jk
 inoremap jk <esc>
@@ -231,20 +190,27 @@ nnoremap <C-T> v%
 " under the cursor, hacky find and replace substitute
 map <C-p> viwpviwy
 
-" Map <C-L> (redraw screen) to also turn off search highlighting until the
-" next search
-" ***EDIT*** changed <C-L> to be move one split left trying to keep the remove
-" highlight functionality in <C-;>
-" **NOTE** doesn't seem to work so I use typing gibbish into search to stop it
-nnoremap <C-;> :nohl<CR>
-" this is for autocomplete
-inoremap <C-Space> <C-x><C-o>
-inoremap <C-@> <C-Space>
+autocmd FileType javascript noremap <leader>d :JsDoc<CR>
+autocmd FileType typescript noremap <leader>d :JsDoc<CR>
+autocmd FileType javascript noremap <leader>ci :NERDCommenterInsert<CR>
+autocmd FileType typescript noremap <leader>ci :NERDCommenterInsert<CR>
 
-autocmd FileType typescript nmap <buffer> <F7> <Plug>(TsuquyomiTypeDefinition)
-autocmd FileType typescript  nmap <buffer> <F10> <Plug>(TsuquyomiImport)
-autocmd FileType vue nmap <buffer> <F6> <Plug>(TsuquyomiRenameSymbolC)
-autocmd FileType vue nmap <buffer> <F7> <Plug>(TsuquyomiTypeDefinition)
-autocmd FileType vue nmap <buffer> <F10> <Plug>(TsuquyomiImport)
-noremap <F8> :lprevious<CR>
-noremap <F9> :lnext<CR>
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+
+" Use underline instead of reversing for errors and warnings
+hi clear SpellBad
+hi SpellBad cterm=bold,underline ctermfg=Red ctermbg=Black
+hi clear SpellCap
+hi SpellCap cterm=bold,underline ctermfg=Yellow ctermbg=Black
+set signcolumn=yes
+
+" Load all plugins now.
+" Plugins need to be added to runtimepath before helptags can be generated.
+packloadall
+" Load all of the helptags now, after plugins have been loaded.
+" All messages and errors will be ignored.
+silent! helptags ALL
