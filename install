@@ -4,6 +4,15 @@ PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 HOME_DIR=$(echo ~)
 RELATIVE_PROJECT_DIR=./${PROJECT_DIR#"$HOME_DIR/"}
 
+$NPM_EXISTS=$(command -v npm)
+
+if [[ -z $NPM_EXISTS ]]; then
+
+  echo "npm is required to proceed. Please install it."
+  exit 1
+
+fi
+
 cd $PROJECT_DIR
 
 # Back up any existing files
