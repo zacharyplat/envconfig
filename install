@@ -4,7 +4,10 @@ PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 HOME_DIR=$(echo ~)
 RELATIVE_PROJECT_DIR=./${PROJECT_DIR#"$HOME_DIR/"}
 
-$NPM_EXISTS=$(command -v npm)
+NPM_EXISTS='$(command -v npm)'
+echo -----
+echo $NPM_EXISTS
+echo -----
 
 if [[ -z $NPM_EXISTS ]]; then
 
@@ -27,7 +30,7 @@ git submodule update
 #Initialize fonts
 cd font && ./install.sh
 
-$YARN_EXISTS=$(command -v yarn)
+YARN_EXISTS=$(command -v yarn)
 
 if [[ -z $YARN_EXISTS ]]; then
 
@@ -75,11 +78,6 @@ if [[ -d $PROJECT_DIR/.bak/bin ]]; then
     fi
   done
 fi
-
-for MODULE in $(cat $PROJECT_DIR/global_node_modules.txt); do
-
-  yarn global add $MODULE
-
-done
+mkdir
 
 echo "Installed, but you must source ~/.profile for the env to take effect"
